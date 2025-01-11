@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { FaTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaTrashAlt, FaSignOutAlt, FaPlus } from 'react-icons/fa';
 import InputField from '../../components/inputField/InputField'; // Import your custom InputField component
+import { useAuth } from '../../context/authContext/AuthContext';
 
 const CarSubmissionPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const CarSubmissionPage = () => {
     maxPictures: '2',
   });
 
+  const { logout } = useAuth();
   const [cities, setCities] = useState(['Lahore', 'Karachi', 'Islamabad']);
   const [newCity, setNewCity] = useState('');
   const [images, setImages] = useState([]);
@@ -59,6 +61,11 @@ const CarSubmissionPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,8 +102,33 @@ const CarSubmissionPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="min-h-screen bg-gray-100 py-0 /px- sm:px-6 lg:px-8">
+      <nav className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+              <span className="transform hover:scale-110 transition-transform duration-200">🚗</span>
+              <span className="ml-2">Car Dashboard</span>
+            </h1>
+            <button
+              onClick={()=>{navigate('/dashboard')}}
+              className="group flex items-center px-4 py-2 text-gray-900 font-bold hover:text-red-600 transition-colors duration-200"
+            >
+              {/* <FaSignOutAlt className="mr-2 group-hover:rotate-180 transition-transform duration-300" /> */}
+              <span>Dashboard</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="group flex items-center px-4 py-2 text-gray-600 hover:text-red-600 transition-colors duration-200"
+            >
+              <FaSignOutAlt className="mr-2 group-hover:rotate-180 transition-transform duration-300" />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-md mt-12 mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="px-6 py-8">
           <h2 className="text-2xl font-bold text-blue-700 mb-6">Submit Your Car</h2>
 

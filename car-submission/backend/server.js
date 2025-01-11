@@ -8,13 +8,20 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+
+const corsOptions = {
+    origin: 'http://localhost:3000', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+};
+
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/',carRoutes)
+app.use('/api/cars',carRoutes)
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

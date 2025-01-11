@@ -17,6 +17,7 @@ ReactDOM.createRoot(root).render(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/submissions" element={<CarSubmissionForm />} />
       <Route path="/dashboard" element={<UserDashboard />} />
+      
     </Routes>
   </BrowserRouter>
   </AuthProvider>
